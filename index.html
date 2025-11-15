@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPTVking - Advanced IPTV Player</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff7700;
+            --primary-dark: #e56a00;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --light: #f8f9fa;
+            --gray: #1a1a1a;
+        }
+
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .bg-dark-custom {
+            background-color: var(--dark) !important;
+        }
+
+        .bg-darker {
+            background-color: var(--darker) !important;
+        }
+
+        .bg-gray {
+            background-color: var(--gray) !important;
+        }
+
+        .text-primary-custom {
+            color: var(--primary) !important;
+        }
+
+        .btn-primary-custom {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: var(--dark);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 119, 0, 0.3);
+        }
+
+        .btn-outline-primary-custom {
+            border-color: var(--primary);
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary-custom:hover {
+            background-color: var(--primary);
+            color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        .navbar {
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(10, 10, 10, 0.95) !important;
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 119, 0, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, var(--gray), var(--dark));
+            border: 1px solid rgba(255, 119, 0, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 119, 0, 0.3);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .pricing-card {
+            background: linear-gradient(145deg, var(--gray), var(--dark));
+            border: 1px solid rgba(255, 119, 0, 0.1);
+            border-radius: 15px;
+            padding: 2.5rem 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card.popular {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.popular::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .price-period {
+            color: #aaa;
+            font-size: 1rem;
+        }
+
+        .app-showcase {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-showcase::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 119, 0, 0.1) 0%, transparent 70%);
+        }
+
+        .screenshot {
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--dark);
+        }
+
+        .screenshot:hover {
+            transform: scale(1.03);
+        }
+
+        .testimonial-card {
+            background: linear-gradient(145deg, var(--gray), var(--dark));
+            border: 1px solid rgba(255, 119, 0, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .footer {
+            background: var(--darker);
+            padding: 4rem 0 2rem;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--gray);
+            color: var(--light);
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, -15px); }
+            100% { transform: translate(0, 0px); }
+        }
+
+        .glow {
+            text-shadow: 0 0 10px rgba(255, 119, 0, 0.5);
+        }
+
+        .counter {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .counter-label {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        .badge-premium {
+            background: linear-gradient(45deg, #ff7700, #ffaa00);
+            color: var(--dark);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+        }
+
+        .nav-link {
+            color: var(--light) !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--primary) !important;
+        }
+
+        .download-btn {
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+        }
+
+        .app-interface {
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-window {
+            background: #0a0a0a;
+            border: 2px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .app-header {
+            background: #ff7700;
+            padding: 10px 15px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .app-content {
+            padding: 15px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 15px;
+        }
+
+        .channel-list {
+            background: #1a1a1a;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .channel-item {
+            padding: 8px;
+            border-bottom: 1px solid #333;
+            color: #fff;
+        }
+
+        .video-player {
+            background: #000;
+            border-radius: 5px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff7700;
+            font-weight: bold;
+        }
+
+        .provider-logo {
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+            
+            .pricing-card.popular:hover {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-crown me-2"></i>IPTVking
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#app">App</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#providers">IPTV Providers</a>
+                    </li>
+                </ul>
+                <a href="#pricing" class="btn btn-primary-custom download-btn ms-lg-3 mt-3 mt-lg-0">
+                    <i class="fas fa-download me-2"></i>Download Now
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="hero-title">The Ultimate IPTV Experience</h1>
+                    <p class="hero-subtitle">Watch over 10,000 channels, movies, and TV shows with the most advanced IPTV player on the market. Multi-view, recording, and smart features included.</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#pricing" class="btn btn-primary-custom btn-lg download-btn">
+                            <i class="fas fa-rocket me-2"></i>Get IPTVking Pro
+                        </a>
+                        <a href="#features" class="btn btn-outline-primary-custom btn-lg">
+                            <i class="fas fa-play-circle me-2"></i>Watch Demo
+                        </a>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col-4 text-center">
+                            <div class="counter">10K+</div>
+                            <div class="counter-label">Channels</div>
+                        </div>
+                        <div class="col-4 text-center">
+                            <div class="counter">50K+</div>
+                            <div class="counter-label">Movies</div>
+                        </div>
+                        <div class="col-4 text-center">
+                            <div class="counter">100K+</div>
+                            <div class="counter-label">Users</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <div class="screenshot floating app-interface">
+                        <div class="app-window">
+                            <div class="app-header">
+                                <i class="fas fa-crown me-2"></i>IPTVking - Now Playing: Sports Channel
+                            </div>
+                            <div class="app-content">
+                                <div class="channel-list">
+                                    <div class="channel-item">★ Sports Network</div>
+                                    <div class="channel-item">Movie Channel</div>
+                                    <div class="channel-item">News Live</div>
+                                    <div class="channel-item">Entertainment</div>
+                                    <div class="channel-item">Kids TV</div>
+                                    <div class="channel-item">Documentary</div>
+                                </div>
+                                <div class="video-player">
+                                    <div>
+                                        <i class="fas fa-play-circle fa-3x mb-3"></i>
+                                        <div>LIVE SPORTS</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5 bg-darker">
+        <div class="container">
+            <h2 class="section-title">Revolutionary Features</h2>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <h4>Multi-View</h4>
+                        <p>Watch up to 4 channels simultaneously with our advanced multi-view technology. Perfect for sports and news enthusiasts.</p>
+                        <div class="mt-3 p-2 bg-dark rounded">
+                            <div class="d-flex flex-wrap gap-1">
+                                <div class="bg-gray rounded" style="width: 45%; height: 60px;"></div>
+                                <div class="bg-gray rounded" style="width: 45%; height: 60px;"></div>
+                                <div class="bg-gray rounded" style="width: 45%; height: 60px;"></div>
+                                <div class="bg-gray rounded" style="width: 45%; height: 60px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-record-vinyl"></i>
+                        </div>
+                        <h4>Background Recording</h4>
+                        <p>Record your favorite shows while watching other channels. Never miss a moment of your preferred content.</p>
+                        <div class="mt-3 p-2 bg-dark rounded text-center">
+                            <i class="fas fa-circle text-danger me-2"></i>
+                            <span class="text-muted">Recording: Sports Event</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <h4>Channel Sharing</h4>
+                        <p>Share channels with friends via local network. Create your own streaming server in seconds.</p>
+                        <div class="mt-3 p-2 bg-dark rounded text-center">
+                            <i class="fas fa-wifi text-primary-custom me-2"></i>
+                            <span class="text-muted">Sharing: http://192.168.1.100:8080</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-filter"></i>
+                        </div>
+                        <h4>Smart Filtering</h4>
+                        <p>Advanced channel filtering by country, genre, and content. Hide what you don't want to see.</p>
+                        <div class="mt-3 p-2 bg-dark rounded">
+                            <div class="d-flex flex-wrap gap-1">
+                                <span class="badge bg-primary">Sports</span>
+                                <span class="badge bg-primary">Movies</span>
+                                <span class="badge bg-secondary">News</span>
+                                <span class="badge bg-secondary">Kids</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h4>Smart Notifications</h4>
+                        <p>Get notified when your favorite shows are about to start. Personalized recommendations based on your viewing habits.</p>
+                        <div class="mt-3 p-2 bg-dark rounded">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-bell text-warning me-2"></i>
+                                <small>Game of Thrones starts in 15min</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h4>Custom Themes</h4>
+                        <p>Multiple beautiful themes including Dark, Light, Neon, and our signature Orange & Black.</p>
+                        <div class="mt-3 p-2 bg-dark rounded">
+                            <div class="d-flex gap-2">
+                                <div class="rounded-circle bg-primary" style="width: 25px; height: 25px;"></div>
+                                <div class="rounded-circle bg-dark border" style="width: 25px; height: 25px;"></div>
+                                <div class="rounded-circle bg-success" style="width: 25px; height: 25px;"></div>
+                                <div class="rounded-circle bg-danger" style="width: 25px; height: 25px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-5 bg-dark-custom">
+        <div class="container">
+            <h2 class="section-title">Choose Your Plan</h2>
+            <p class="text-center mb-5">All plans include lifetime updates and premium support</p>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-4 col-md-6">
+                    <div class="pricing-card">
+                        <h4 class="mb-3">Basic</h4>
+                        <div class="price">$19<span class="price-period">/one-time</span></div>
+                        <ul class="list-unstyled my-4">
+                            <li class="mb-2"><i class="fas fa-check text-primary-custom me-2"></i> All Basic Features</li>
+                            <li class="mb-2"><i class="fas fa-check text-primary-custom me-2"></i> 5,000+ Channels</li>
+                            <li class="mb-2"><i class="fas fa-check text-primary-custom me-2"></i> Basic Recording</li>
+                            <li class="mb-2"><i class="fas fa-times text-muted me-2"></i> Multi-View</li>
+                            <li class="mb-2"><i class="fas fa-times text-muted me-2"></i> Channel Sharing</li>
+                            <li class="mb-2"><i class="fas fa-times text-muted me-2"></i> Premium Support</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline-primary-custom w-100">Get Basic</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="pricing-card popular">
+                        <span class="badge-premium">MOST POPULAR</span>
+                        <h4 class="mb-3 mt-4">Pro</h4>
+                        <div class="price">$49<span class="price-period">/one-time</span></div>
+                        <ul class="list-unstyled my-4">
+                            <li class="mb-2"><i class="fas fa-check text-primary-custom me-2"></i> All Basic Features</li>
+                            <li class="mb-2"><i class="fas fa-check text-primary-custom me-2"></i> 10,000+ Channels</li>
+                            <li class="mb-2"><i class="fas fa-check text-primary-custom me-2"></i> Advanced Recording</li>
+                            <li class="mb-2"><i class="fas fa-check text-primary-custom me-2"></i> Multi-View (4 screens)</li>
+                            <li class="mb-2"><i class="fas fa-check text-primary-custom me-2"></i> Channel Sharing</li>
+                            <li class="mb-2"><i class="fas fa-check text-primary-custom me-2"></i> Premium Support</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary-custom w-100">Get Pro</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="pricing-card">
+                        <h4 class="mb-3">Ultimate Bundle</h4>
+                        <div class="price">$99<span class="price-period">/one-time</span></div>
+                        <ul class="list-unstyled my-4">
+                            <li class="mb-2"><i class="fas fa-check text-primary-custom me-2"></i> All Pro Features</li>
+                            <li class="mb-2"><i class="fas fa-check text-primary-custom me-2"></i> 15,000+ Channels</li>
+                            <li class="mb-2"><i class="fas fa-check text-primary-custom me-2"></i> 1 Year IPTV Service</li>
+                            <li class="mb-2"><i class="fas fa-check text-primary-custom me-2"></i> Multi-View (8 screens)</li>
+                            <li class="mb-2"><i class="fas fa-check text-primary-custom me-2"></i> Advanced Sharing</li>
+                            <li class="mb-2"><i class="fas fa-check text-primary-custom me-2"></i> Priority Support</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline-primary-custom w-100">Get Ultimate</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <p class="text-muted">30-day money-back guarantee • All prices in USD</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Showcase -->
+    <section id="app" class="py-5 bg-darker">
+        <div class="container">
+            <h2 class="section-title">The IPTVking Experience</h2>
+            <div class="app-showcase">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h3 class="mb-4">Designed for Power Users</h3>
+                        <p class="mb-4">IPTVking isn't just another IPTV player. It's a complete entertainment system designed from the ground up for power users who demand the best.</p>
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <h5 class="text-primary-custom">Windows</h5>
+                                <p>Full desktop experience with advanced features</p>
+                            </div>
+                            <div class="col-6">
+                                <h5 class="text-primary-custom">Android</h5>
+                                <p>Mobile optimized with touch controls</p>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="#" class="btn btn-primary-custom">
+                                <i class="fab fa-windows me-2"></i>Windows
+                            </a>
+                            <a href="#" class="btn btn-outline-primary-custom">
+                                <i class="fab fa-android me-2"></i>Android
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 text-center">
+                        <div class="screenshot">
+                            <div class="app-interface">
+                                <div class="app-window">
+                                    <div class="app-header">
+                                        <i class="fas fa-th me-2"></i>Multi-View - 4 Channels
+                                    </div>
+                                    <div class="p-3">
+                                        <div class="row g-2">
+                                            <div class="col-6">
+                                                <div class="video-player bg-dark" style="height: 120px;">
+                                                    <small>SPORTS</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="video-player bg-dark" style="height: 120px;">
+                                                    <small>MOVIES</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="video-player bg-dark" style="height: 120px;">
+                                                    <small>NEWS</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="video-player bg-dark" style="height: 120px;">
+                                                    <small>MUSIC</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-5 bg-dark-custom">
+        <div class="container">
+            <h2 class="section-title">What Our Users Say</h2>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "I've tried many IPTV players, but IPTVking is on another level. The multi-view feature changed how I watch sports forever!"
+                        </div>
+                        <div class="testimonial-author">- Michael T.</div>
+                        <div class="text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "The recording feature is a game-changer. I can record my favorite shows while watching live TV. Worth every penny!"
+                        </div>
+                        <div class="testimonial-author">- Sarah L.</div>
+                        <div class="text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            "As a movie enthusiast, the filtering system helps me find exactly what I want to watch. The interface is beautiful and intuitive."
+                        </div>
+                        <div class="testimonial-author">- David K.</div>
+                        <div class="text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IPTV Providers -->
+    <section id="providers" class="py-5 bg-darker">
+        <div class="container">
+            <h2 class="section-title">Premium IPTV Providers</h2>
+            <p class="text-center mb-5">We partner with the best IPTV providers to bring you unparalleled content quality and reliability</p>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="feature-card">
+                        <h4 class="text-primary-custom mb-3">Global Entertainment</h4>
+                        <p>Access to 10,000+ live channels from around the world including sports, news, movies, and entertainment in HD and 4K quality.</p>
+                        <div class="provider-logo mt-3">
+                            <i class="fas fa-globe fa-3x text-primary-custom mb-3"></i>
+                            <h5>Global Entertainment</h5>
+                            <small class="text-muted">Premium Content Provider</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="feature-card">
+                        <h4 class="text-primary-custom mb-3">Sports Package</h4>
+                        <p>Never miss a game with our comprehensive sports package featuring all major leagues, PPV events, and exclusive sports content.</p>
+                        <div class="provider-logo mt-3">
+                            <i class="fas fa-trophy fa-3x text-primary-custom mb-3"></i>
+                            <h5>Sports Network</h5>
+                            <small class="text-muted">Official Sports Partner</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <a href="#pricing" class="btn btn-primary-custom btn-lg">
+                    <i class="fas fa-tv me-2"></i>Get App + IPTV Service
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h4 class="text-primary-custom mb-3"><i class="fas fa-crown me-2"></i>IPTVking</h4>
+                    <p>The most advanced IPTV player on the market with cutting-edge features for the modern viewer.</p>
+                    <div class="d-flex mt-4">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">Product</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-light">Features</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-light">Pricing</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-light">Downloads</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-light">Releases</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">Support</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-light">Documentation</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-light">Guides</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-light">API Status</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-light">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="mb-3">Company</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-light">About</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-light">Blog</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-light">Careers</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-light">Press</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5 class="mb-3">Legal</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-light">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-light">Terms of Service</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-light">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-5 bg-gray">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 IPTVking. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">Made with <i class="fas fa-heart text-danger"></i> for IPTV enthusiasts</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').classList.add('scrolled');
+            } else {
+                document.querySelector('.navbar').classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Simple counter animation
+        function animateCounter(element, target, duration) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target + '+';
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start) + '+';
+                }
+            }, 16);
+        }
+
+        // Initialize counters when in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = document.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.textContent);
+                        animateCounter(counter, target, 2000);
+                    });
+                    observer.disconnect();
+                }
+            });
+        });
+
+        observer.observe(document.querySelector('.hero-section'));
+    </script>
+</body>
+</html>
