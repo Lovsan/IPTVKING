@@ -19,7 +19,6 @@ from core.license_manager import license_manager
 from ui.window.login_window import LoginWindow
 from ui.window.main_window import MainWindow
 from config.settings import AppConfig
-from managers.playlist_manager import playlist_manager
 import os
 
 class IPTVKingApp:
