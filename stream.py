@@ -15,7 +15,8 @@ def create_m3u(directory, output_file):
                 ext = os.path.splitext(file)[1].lower()
                 if ext in movie_extensions:
                     file_path = os.path.join(root, file)
-                    # Write the file path to the playlist.
+                    # Write the EXTINF metadata and the file path to the playlist.
+                    f.write(f'#EXTINF:-1,{os.path.splitext(file)[0]}\n')
                     f.write(file_path + '\n')
 
 if __name__ == '__main__':
