@@ -42,9 +42,12 @@ class DevReloadHandler(FileSystemEventHandler):
 def main():
     """Run development server with auto-reload"""
     script_path = Path(__file__).parent / "main.py"
-    
-    if not script_path.exists():
-        print("❌ main.py not found!")
+    try:
+        if not script_path.exists():
+            print("❌ main.py not found!")
+            return
+    except OSError as e:
+        print(f"❌ Error accessing main.py: {e}")
         return
     
     print("🎬 Starting IPTVking Development Server")
