@@ -12,8 +12,12 @@ from PyQt6.QtWidgets import (
     QTableWidget, QTableWidgetItem, QHeaderView, QPushButton, QLineEdit, QComboBox, QMessageBox
 )
 
-# Global EPG URL
-EPG_URL = "http://1ere-serrvices.com:80/xmltv.php?username=363ys5p123e&password=perv0j5t8x&type=m3u_plus&output=mpegts"
+# Global EPG URL (credentials loaded from environment variables)
+EPG_USERNAME = os.environ.get("EPG_USERNAME")
+EPG_PASSWORD = os.environ.get("EPG_PASSWORD")
+if not EPG_USERNAME or not EPG_PASSWORD:
+    raise RuntimeError("EPG_USERNAME and EPG_PASSWORD environment variables must be set.")
+EPG_URL = f"http://1ere-serrvices.com:80/xmltv.php?username={EPG_USERNAME}&password={EPG_PASSWORD}&type=m3u_plus&output=mpegts"
 
 def fetch_epg_data():
     """Fetch and parse the XMLTV data from EPG_URL.
