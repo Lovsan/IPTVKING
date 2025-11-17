@@ -1,6 +1,6 @@
 {
     "load_increment": 1500,
     "theme": "Dark",
-    "TMDB_API_KEY": "21c869343c05f40c57b28ce8eb50b81e",
+    "TMDB_API_KEY": "<SET_FROM_ENVIRONMENT_VARIABLE>",
     "download_channel_images": false
 }
