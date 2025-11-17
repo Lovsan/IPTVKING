@@ -86,10 +86,7 @@ class EPGWindow(QMainWindow):
         now = datetime.datetime.now()
         grid_start = now.replace(minute=0, second=0, microsecond=0)
         # round down to nearest half hour
-        if now.minute < 30:
-            grid_start = grid_start.replace(minute=0)
-        else:
-            grid_start = grid_start.replace(minute=30)
+        grid_start = grid_start.replace(minute=0 if now.minute < 30 else 30)
         grid_end = grid_start + datetime.timedelta(hours=6)
         
         # Create time slots: each 30 minutes
