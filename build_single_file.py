@@ -126,7 +126,7 @@ Requirements:
             # Handle 'from module import something'
             parts = import_line.split()
             module_path = parts[1]
-            imports = parts[3:]
+            
             
             # Convert module path to file path
             file_path = self.module_to_file(module_path, current_file)
