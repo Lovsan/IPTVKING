@@ -6,7 +6,6 @@ import xml.etree.ElementTree as ET
 import re
 import datetime
 
-from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel,
     QTableWidget, QTableWidgetItem, QHeaderView, QPushButton, QLineEdit, QComboBox, QMessageBox
