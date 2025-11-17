@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-import sys, os, urllib.request, xml.etree.ElementTree as ET, re, datetime
+import sys
+import os
+import urllib.request
+import xml.etree.ElementTree as ET
+import re
+import datetime
 
 from PyQt6 import QtWidgets, QtCore, QtGui
 from PyQt6.QtWidgets import (
