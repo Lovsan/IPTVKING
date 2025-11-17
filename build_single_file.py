@@ -183,7 +183,7 @@ Requirements:
             try:
                 with open(file_path, 'r', encoding='utf-8') as f:
                     total_lines += len(f.readlines())
-            except:
+            except Exception:
                 pass
         
         print(f"📈 Statistics:")
