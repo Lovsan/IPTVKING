@@ -2,7 +2,6 @@
 Enhanced build script to create a single-file version
 """
 
-import os
 import re
 import ast
 from pathlib import Path
