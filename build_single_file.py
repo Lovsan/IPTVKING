@@ -3,7 +3,6 @@ Enhanced build script to create a single-file version
 """
 
 import re
-import ast
 from pathlib import Path
 from typing import Set, List
 
