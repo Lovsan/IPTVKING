@@ -10,6 +10,7 @@ from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel,
     QTableWidget, QTableWidgetItem, QHeaderView, QPushButton, QLineEdit, QComboBox, QMessageBox
 )
+from PyQt6 import QtGui
 
 # Global EPG URL (credentials loaded from environment variables)
 EPG_USERNAME = os.environ.get("EPG_USERNAME")
