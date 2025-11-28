@@ -29,5 +29,8 @@ if __name__ == '__main__':
     parser.add_argument('--output', default='movies.m3u', help='Name of the output .m3u file (default: movies.m3u)')
     
     args = parser.parse_args()
-    create_m3u(args.directory, args.output)
-    print(f"Playlist created successfully: {args.output}")
+    try:
+        create_m3u(args.directory, args.output)
+        print(f"Playlist created successfully: {args.output}")
+    except Exception as e:
+        print(f"Failed to create playlist: {e}")
