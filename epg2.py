@@ -12,17 +12,17 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6 import QtGui
 
-# Global EPG URL (credentials loaded from environment variables)
-EPG_USERNAME = os.environ.get("EPG_USERNAME")
-EPG_PASSWORD = os.environ.get("EPG_PASSWORD")
-if not EPG_USERNAME or not EPG_PASSWORD:
-    raise RuntimeError("EPG_USERNAME and EPG_PASSWORD environment variables must be set.")
-EPG_URL = f"http://1ere-serrvices.com:80/xmltv.php?username={EPG_USERNAME}&password={EPG_PASSWORD}&type=m3u_plus&output=mpegts"
+# EPG credentials and URL will be loaded when needed, not at import time.
 
 def fetch_epg_data():
     """Fetch and parse the XMLTV data from EPG_URL.
     Returns a list of programme dicts with keys: channel, title, start, stop, and optionally image.
     We assume that if an image URL is provided in the XML, it would be in an attribute called 'img'."""
+    EPG_USERNAME = os.environ.get("EPG_USERNAME")
+    EPG_PASSWORD = os.environ.get("EPG_PASSWORD")
+    if not EPG_USERNAME or not EPG_PASSWORD:
+        raise RuntimeError("EPG_USERNAME and EPG_PASSWORD environment variables must be set.")
+    EPG_URL = f"http://1ere-serrvices.com:80/xmltv.php?username={EPG_USERNAME}&password={EPG_PASSWORD}&type=m3u_plus&output=mpegts"
     try:
         response = urllib.request.urlopen(EPG_URL)
         content = response.read()
